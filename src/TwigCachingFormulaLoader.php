@@ -27,7 +27,7 @@ class TwigCachingFormulaLoader extends TwigFormulaLoader
      * @param Twig_Environment $twig
      * @param LoggerInterface  $logger
      */
-    public function __construct(Twig_Environment $twig, LoggerInterface $logger = null)
+    public function __construct(\Twig_Environment $twig, LoggerInterface $logger = null)
     {
         parent::__construct($twig, $logger);
         
