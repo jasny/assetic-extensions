@@ -15,5 +15,10 @@
     },
     "require-dev": {
         "jasny/php-code-quality": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jasny\\Assetic\\": "src/"
+        }
     }
 }
