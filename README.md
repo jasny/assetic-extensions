@@ -1,11 +1,11 @@
 # Jasny Assetic extensions
 
-[![Build Status](https://travis-ci.org/jasny/assetic-extensions.svg?branch=master)](https://travis-ci.org/jasny/{{library}})
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jasny/assetic-extensions/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jasny/{{library}}/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/jasny/assetic-extensions/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jasny/{{library}}/?branch=master)
+[![Build Status](https://travis-ci.org/jasny/assetic-extensions.svg?branch=master)](https://travis-ci.org/jasny/assetic-extensions)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jasny/assetic-extensions/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jasny/assetic-extensions/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/jasny/assetic-extensions/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jasny/assetic-extensions/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/a1a1745c-1272-46a3-9567-7bbb52acda5a/mini.png)](https://insight.sensiolabs.com/projects/a1a1745c-1272-46a3-9567-7bbb52acda5a)
-[![Packagist Stable Version](https://img.shields.io/packagist/v/jasny/assetic-extensions.svg)](https://packagist.org/packages/jasny/{{library}})
-[![Packagist License](https://img.shields.io/packagist/l/jasny/assetic-extensions.svg)](https://packagist.org/packages/jasny/{{library}})
+[![Packagist Stable Version](https://img.shields.io/packagist/v/jasny/assetic-extensions.svg)](https://packagist.org/packages/jasny/assetic-extensions)
+[![Packagist License](https://img.shields.io/packagist/l/jasny/assetic-extensions.svg)](https://packagist.org/packages/jasny/assetic-extensions)
 
 Improved caching for [Assetic](https://github.com/kriswallsmith/assetic).
 
@@ -13,7 +13,7 @@ Improved caching for [Assetic](https://github.com/kriswallsmith/assetic).
 
 Jasny's Twig Extensions can be easily installed using [composer](http://getcomposer.org/)
 
-    composer require jasny/twig-extensions
+    composer require jasny/assetic-extensions
 
 ## Internal caching when using a factory
 
@@ -66,3 +66,4 @@ $factory->setFilterManager($fm);
 
 $factory->addWorker(new AssetVersionWorker($version));
 ```
+
