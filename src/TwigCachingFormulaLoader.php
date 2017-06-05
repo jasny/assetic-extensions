@@ -40,6 +40,16 @@ class TwigCachingFormulaLoader extends TwigFormulaLoader
     }
 
     /**
+     * Get twig cache
+     * 
+     * @return Twig_CacheInterface
+     */
+    public function getCache()
+    {
+        return $this->cache;
+    }
+    
+    /**
      * Get cache key for resource
      * 
      * @param ResourceInterface $resource
@@ -47,7 +57,18 @@ class TwigCachingFormulaLoader extends TwigFormulaLoader
      */
     protected function getCacheKey(ResourceInterface $resource)
     {
-        return $this->cache->generateKey((string)$resource, get_class($resource) . ':' . (string)$resource);
+        return $this->getCache()->generateKey((string)$resource, get_class($resource) . ':' . (string)$resource);
+    }
+    
+    /**
+     * Load a PHP file using include
+     * 
+     * @param string $key
+     * @return mixed|null
+     */
+    protected function loadPhpFile($key)
+    {
+        return file_exists($key) ? include $key : null;
     }
     
     /**
@@ -59,14 +80,15 @@ class TwigCachingFormulaLoader extends TwigFormulaLoader
     protected function loadFromCache(ResourceInterface $resource)
     {
         if (!$this->cache instanceof \Twig_Cache_Filesystem) {
-            return;
+            return null; // $key needs to represent a PHP file on the filesystem
         }
         
         $key = $this->getCacheKey($resource);
-        $timestamp = $this->cache->getTimestamp($key);
+        $timestamp = $this->getCache()->getTimestamp($key);
             
         if (!$this->autoReload || $resource->isFresh($timestamp)) {
-            return include $key; // Unfortunately we can't use Twig cache, because it doesn't return the value
+            // Unfortunately we can't use Twig cache, because it doesn't return the value
+            return $this->loadPhpFile($key);
         }
         
         return null;
@@ -85,7 +107,7 @@ class TwigCachingFormulaLoader extends TwigFormulaLoader
         }
         
         $key = $this->getCacheKey($resource);
-        $this->cache->write($key, '<?php return ' . var_export($formulea, true) . ';');
+        $this->getCache()->write($key, '<?php return ' . var_export($formulea, true) . ';');
     }
     
     /**

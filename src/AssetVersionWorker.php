@@ -5,7 +5,6 @@ namespace Jasny\Assetic;
 use Assetic\Factory\Worker\WorkerInterface;
 use Assetic\Asset\AssetInterface;
 use Assetic\Factory\AssetFactory;
-use Assetic\Asset\AssetInterface;
 
 /**
  * Factory worker to add caching to each asset
@@ -37,7 +36,7 @@ class AssetVersionWorker implements WorkerInterface
     {
         if (isset($this->version)) {
             $originalPath = $asset->getTargetPath();
-            $path = preg_replace('/(\.\w+(?:\.gz))?$/', '-' . $this->version . '\.$1', $originalPath);
+            $path = preg_replace('/(\.\w+(?:\.gz)?)$/', '-' . $this->version . '$1', $originalPath);
             
             $asset->setTargetPath($path);
         }

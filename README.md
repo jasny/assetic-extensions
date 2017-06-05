@@ -1,5 +1,12 @@
 # Jasny Assetic extensions
 
+[![Build Status](https://travis-ci.org/jasny/assetic-extensions.svg?branch=master)](https://travis-ci.org/jasny/{{library}})
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jasny/assetic-extensions/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jasny/{{library}}/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/jasny/assetic-extensions/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jasny/{{library}}/?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a1a1745c-1272-46a3-9567-7bbb52acda5a/mini.png)](https://insight.sensiolabs.com/projects/a1a1745c-1272-46a3-9567-7bbb52acda5a)
+[![Packagist Stable Version](https://img.shields.io/packagist/v/jasny/assetic-extensions.svg)](https://packagist.org/packages/jasny/{{library}})
+[![Packagist License](https://img.shields.io/packagist/l/jasny/assetic-extensions.svg)](https://packagist.org/packages/jasny/{{library}})
+
 Improved caching for [Assetic](https://github.com/kriswallsmith/assetic).
 
 ## Installation
@@ -45,6 +52,8 @@ output files, either manually or by using the `AssetVersionWorker`.
 The `AssetVersionWorker` add a version number to each generated assets. This works well on a production environment,
 preventing the need of removing, checking or overwriting the asset files.
 
+If the output file is set to `all.css` and version is set to `1.3.7`, the output file will be named `all-1.3.7.css`.
+
 ```
 <?php
 
@@ -57,4 +66,3 @@ $factory->setFilterManager($fm);
 
 $factory->addWorker(new AssetVersionWorker($version));
 ```
-
