@@ -21,8 +21,6 @@ The `AssetCacheWorker` wraps each asset in a asset in an `AssetCache` object. Th
 when using a factory.
 
 ```php
-<?php
-
 use Assetic\Factory\AssetFactory;
 use Jasny\Assetic\AssetCacheWorker;
 
@@ -36,6 +34,24 @@ $factory->addWorker(new AssetCacheWorker(
 
 ```
 
+## Versioning assets
+
+The `AssetVersionWorker` add a version number to each generated assets. This works well on a production environment,
+preventing the need of removing, checking or overwriting the asset files.
+
+If the output file is set to `all.css` and version is set to `1.3.7`, the output file will be named `all-1.3.7.css`.
+
+```php
+use Assetic\Factory\AssetFactory;
+use Jasny\Assetic\AssetVersionWorker;
+
+$factory = new AssetFactory('/path/to/asset/directory/');
+$factory->setAssetManager($am);
+$factory->setFilterManager($fm);
+
+$factory->addWorker(new AssetVersionWorker($version));
+```
+
 ## Caching when using Twig
 
 With the example code from the Assetic readme, each template is parsed on each request. This considerably slows down
@@ -47,23 +63,27 @@ The `PersistentAssetWriter` is an asset writer with an `overwrite` option. When 
 are not overwritten. This can speed up your production environment. It's recommended to add a version number in the
 output files, either manually or by using the `AssetVersionWorker`.
 
-## Versioning assets
+```php
+use Jasny\Assetic\PersistentAssetWriter;
+use Jasny\Assetic\TwigCachingFormulaLoader;
+use Assetic\Extension\Twig\TwigResource;
+use Assetic\Factory\LazyAssetManager;
 
-The `AssetVersionWorker` add a version number to each generated assets. This works well on a production environment,
-preventing the need of removing, checking or overwriting the asset files.
+$twigLoader = new Twig_Loader_Filesystem('/path/to/views');
+$twig = new Twig_Environment($twigLoader, ['cache' => '/path/to/cache', 'auto_reload' => true]);
 
-If the output file is set to `all.css` and version is set to `1.3.7`, the output file will be named `all-1.3.7.css`.
+$am = new LazyAssetManager($factory);
 
-```
-<?php
+// enable loading assets from twig templates, caching the formulae
+$am->setLoader('twig', new TwigCachingFormulaLoader($twig));
 
-use Assetic\Factory\AssetFactory;
-use Jasny\Assetic\AssetVersionWorker;
+// loop through all your templates
+foreach ($templates as $template) {
+    $resource = new TwigResource($twigLoader, $template);
+    $am->addResource($resource, 'twig');
+}
 
-$factory = new AssetFactory('/path/to/asset/directory/');
-$factory->setAssetManager($am);
-$factory->setFilterManager($fm);
-
-$factory->addWorker(new AssetVersionWorker($version));
+$writer = new PersistentAssetWriter('/path/to/web');
+$writer->writeManagerAssets($am);
 ```
 
